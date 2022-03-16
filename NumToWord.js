@@ -3,7 +3,7 @@ const NumberToWordDictionaryAndFunction = {
     en_ones_place: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],
     en_tens: ["ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"],
     en_tens_place: ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"],
-    en_others_place: ["", " thousand ", " million ", " billion ", " trillion ", " quadrillion ", " quintillion ", " sextillion ", " septillion ", " octillion ", " nonillion ", " decillion ", " undecillion ", " duodecillion ", " tredecillion ", " quattuordecillion ", " quindecillion ", " sexdecillion ", " septendecillion ", " octodecillion ", " novemdecillion ", " vigintillion ", " unvigintillion ", " duovigintillion ", " tresvigintillion ", " quattuorvigintillion ", " quinvigintillion ", " sesvigintillion ", /*googol*/ " trestrigintillion ", " quattuortrigintillion ", " quintrigintillion ", " sestrigintillion ", " septentrigintillion ", " octotrigintillion ", " noventrigintillion ", " quadragintillion " /*??????????????????????????????quinquagintillion*/ ],
+    en_others_place: ["", " thousand ", " million ", " billion ", " trillion ", " quadrillion ", " quintillion ", " sextillion ", " septillion ", " octillion ", " nonillion ", " decillion ", " undecillion ", " duodecillion ", " tredecillion ", " quattuordecillion ", " quindecillion ", " sexdecillion ", " septendecillion ", " octodecillion ", " novemdecillion ", " vigintillion ", " unvigintillion ", " duovigintillion ", " tresvigintillion ", " quattuorvigintillion ", " quinvigintillion ", " sesvigintillion ", " septemvigintillion ", " octovigintillion ", " novemvigintillion ", " trigintillion ", " untrigintillion ", " duotrigintillion ", /*googol*/ " trestrigintillion ", " quattuortrigintillion ", " quintrigintillion ", " sestrigintillion ", " septentrigintillion ", " octotrigintillion ", " noventrigintillion ", " quadragintillion " /*??????????????????????????????quinquagintillion*/ ],
     jp_ones_place: ["〇", "一", "二", "三", "四", "五", "六", "七", "八", "九"],
     jp_others_place: ["", "万", "億", "兆", "京", "垓", "秭", "穣", "溝", "澗", "正", "載", "極", "恒河沙", "阿僧祇", "那由他", "不可思議", "無量大数"],
     replace_num_A: function(n) {
@@ -105,7 +105,7 @@ function num_to_word_en(n) {
         if (n[1] != "") {
             under_point = "point " + n[1];
         }
-        if (over_point.length < 127) {
+        if (over_point.length < NumberToWordDictionaryAndFunction.en_others_place.length * 3 + 1) {
             let over_array = [];
             for (let i = 0; i <= 9; i++) {
                 a = new RegExp(i, "g");
@@ -151,7 +151,7 @@ function num_to_word_jp(n) {
         if (n[1] != "") {
             under_point = "・" + n[1];
         }
-        if (over_point.length < 73) {
+        if (over_point.length < NumberToWordDictionaryAndFunction.jp_others_place.length * 4 + 1) {
             let over_array = [];
             for (let i = 0; i <= 9; i++) {
                 a = new RegExp(i, "g");
