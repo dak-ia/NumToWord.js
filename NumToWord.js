@@ -1,4 +1,4 @@
-/*! NumToWord.js ver0.2 | MIT License | https://github.com/dak-ia/NumToWord.js/blob/main/LICENSE */
+/*! NumToWord.js ver0.1 | MIT License | https://github.com/dak-ia/NumToWord.js/blob/main/LICENSE */
 const NumberToWordDictionaryAndFunction = {
     en_ones_place: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],
     en_tens: ["ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"],
@@ -9,7 +9,7 @@ const NumberToWordDictionaryAndFunction = {
     replace_num_A: function(n) {
         n = n.toString().replace(/[\uFF10-\uFF19]/g, function(s) {
             return String.fromCharCode(s.charCodeAt(0) - 0xfee0);
-        }).replace(/．/g, ".").replace(/，/g, "").replace(/\,/g, "").replace(/\s/g, "").replace(/＾/g, "^").replace(/[πΠ]/g, Math.PI).replace(/[eE]/g, Math.E).trim().split(".");
+        }).replace(/．/g, ".").replace(/，/g, "").replace(/\,/g, "").replace(/\s/g, "").replace(/＾/g, "^").replace(/[πΠ]/g, Math.PI).replace(/[eEｅＥ]/g, Math.E).trim().split(".");
         n[0] = n[0].replace(/^0*/g, "");
         if (typeof n[1] != "undefined") {
             n[1] = n[1].replace(/0*$/g, "");
