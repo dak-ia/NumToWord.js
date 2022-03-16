@@ -1,4 +1,4 @@
-/*! NumToWord.js ver0.1 | MIT License | https://github.com/dak-ia/NumToWord.js/blob/main/LICENSE */
+/*! NumToWord.js ver0.2 | MIT License | https://github.com/dak-ia/NumToWord.js/blob/main/LICENSE */
 const NumberToWordDictionaryAndFunction = {
     en_ones_place: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],
     en_tens: ["ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"],
