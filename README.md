@@ -1,4 +1,5 @@
 # NumToWord.js
+### NumToWord.js | MIT License | https://github.com/dak-ia/NumToWord.js/blob/main/LICENSE
 
 # Japanese
 数字を各言語の単語に変換します。
