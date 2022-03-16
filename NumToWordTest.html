@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>num_to_word</title>
+    <script type="text/javascript" src="NumToWord.js"></script>
+</head>
+
+<body>
+    <input type="number" id="text" style="width: 100em;" autofocus>
+    <br>
+    <input type="button" onclick="press_en()" value="数字を英語へ">
+    <input type="button" onclick="press_jp()" value="数字を漢字へ">
+    <input type="button" onclick="press_jp_dai()" value="数字を大字へ">
+    <br><br>
+    <span id="out"></span>
+</body>
+<script>
+    let input = document.getElementById("text");
+    let output = document.getElementById("out");
+
+    function press_en() {
+        out.innerText = num_to_word_en(input.value);
+    }
+
+    function press_jp() {
+        out.innerText = num_to_word_jp(input.value);
+    }
+
+    function press_jp_dai() {
+        out.innerText = num_to_word_jp_dai(input.value);
+    }
+</script>
+
+
+</html>
