@@ -135,7 +135,7 @@ class NumToWord {
     static toEn(num) {
         const numToWord = new NumToWord();
         const numArray = numToWord.#splitNum(num);
-        if (numArray.integer.length > 309) {
+        if (numArray.integer.length > (Object.values(numToWord.#enOthersPlace).length - 1) * 3) {
             throw new Error("Overflow");
         }
         let integerArray = numToWord.#sliceTo3digitNum(numArray.integer);
@@ -167,7 +167,7 @@ class NumToWord {
     static toJp(num) {
         const numToWord = new NumToWord();
         const numArray = numToWord.#splitNum(num);
-        if (numArray.integer.length > 72) {
+        if (numArray.integer.length > Object.values(numToWord.#jpOthersPlace).length * 4) {
             throw new Error("Overflow");
         }
         let integerArray = numToWord.#sliceTo4digitNum(numArray.integer);
