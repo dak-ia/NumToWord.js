@@ -1,199 +1,199 @@
-/*! NumToWord.js ver0.2 | MIT License | https://github.com/dak-ia/NumToWord.js/blob/main/LICENSE */
-const NumberToWordDictionaryAndFunction = {
-    en_ones_place: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],
-    en_tens: ["ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"],
-    en_tens_place: ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"],
-    en_others_place: ["", " thousand ", " million ", " billion ", " trillion ", " quadrillion ", " quintillion ", " sextillion ", " septillion ", " octillion ", " nonillion ", " decillion ", " undecillion ", " duodecillion ", " tredecillion ", " quattuordecillion ", " quindecillion ", " sexdecillion ", " septendecillion ", " octodecillion ", " novemdecillion ", " vigintillion ", " unvigintillion ", " duovigintillion ", " tresvigintillion ", " quattuorvigintillion ", " quinvigintillion ", " sesvigintillion ", " septemvigintillion ", " octovigintillion ", " novemvigintillion ", " trigintillion ", " untrigintillion ", " duotrigintillion ", /*googol*/ " trestrigintillion ", " quattuortrigintillion ", " quintrigintillion ", " sestrigintillion ", " septentrigintillion ", " octotrigintillion ", " noventrigintillion ", " quadragintillion " /*??????????????????????????????quinquagintillion*/ ],
-    jp_ones_place: ["〇", "一", "二", "三", "四", "五", "六", "七", "八", "九"],
-    jp_others_place: ["", "万", "億", "兆", "京", "垓", "秭", "穣", "溝", "澗", "正", "載", "極", "恒河沙", "阿僧祇", "那由他", "不可思議", "無量大数"],
-    replace_num_A: function(n) {
-        n = n.toString().replace(/[\uFF10-\uFF19]/g, function(s) {
+"use strict";
+
+class NumToWord {
+    static version = "0.0.1";
+
+    #enOnesPlace = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+    #enTens = ["ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"];
+    #enTensPlace = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
+    #enHundredsPlace = ["hundred"];
+    #enOthersPlace = { 0: "", 3: "Thousand", 6: "Million", 9: "Billion", 12: "Trillion", 15: "Quadrillion", 18: "Quintillion", 21: "Sextillion", 24: "Septillion", 27: "Octillion", 30: "Nonillion", 33: "Decillion", 36: "Undecillion", 39: "Duodecillion", 42: "Tredecillion", 45: "Quattuordecillion", 48: "Quindecillion", 51: "Sexdecillion", 54: "Septendecillion", 57: "Octodecillion", 60: "Novemdecillion", 63: "Vigintillion", 66: "Unvigintillion", 69: "Duovigintillion", 72: "Trevigintillion", 75: "Quattuorvigintillion", 78: "Quinvigintillion", 81: "Sexvigintillion", 84: "Septenvigintillion", 87: "Octovigintillion", 90: "Novemvigintillion", 93: "Trigintillion", 96: "Untrigintillion", 99: "Duotrigintillion", 100: "Googol", 102: "Tretrigintillion", 105: "Quattuortrigintillion", 108: "Quinquatrigintillion", 111: "Sextrigintillion", 114: "Septentrigintillion", 117: "Octotrigintillion", 120: "Novemtrigintillion", 123: "Quadragintillion", 126: "Unquadragintillion", 129: "Duoquadragintillion", 132: "Trequadragintillion", 135: "Quattuorquadragintillion", 138: "Quinquadragintillion", 141: "Sexquadragintillion", 144: "Septenquadragintillion", 147: "Octoquadragintillion", 150: "Novemquadragintillion", 153: "Quinquagintillion", 156: "Unquinquagintillion", 159: "Duoquinquagintillion", 162: "Trequinquagintillion", 165: "Quattuorquinquagintillion", 168: "Quinquinquagintillion", 171: "Sexquinquagintillion", 174: "Septenquinquagintillion", 177: "Octoquinquagintillion", 180: "Novemquinquagintillion", 183: "Sexagintillion", 186: "Unsexagintillion", 189: "Duosexagintillion", 192: "Tresexagintillion", 195: "Quattuorsexagintillion", 198: "Quinsexagintillion", 201: "Sexsexagintillion", 204: "Septensexagintillion", 207: "Octosexagintillion", 210: "Novemsexagintillion", 213: "Septuagintillion", 216: "Unseptuagintillion", 219: "Duoseptuagintillion", 222: "Treseptuagintillion", 225: "Quattuorseptuagintillion", 228: "Quinseptuagintillion", 231: "Sexseptuagintillion", 234: "Septenseptuagintillion", 237: "Octoseptuagintillion", 240: "Novemseptuagintillion", 243: "Octogintillion", 246: "Unoctogintillion", 249: "Duooctogintillion", 252: "Treoctogintillion", 255: "Quattuoroctogintillion", 258: "Quinoctogintillion", 261: "Sexoctogintillion", 264: "Septenoctogintillion", 267: "Octooctogintillion", 270: "Novemoctogintillion", 273: "Nonagintillion", 276: "Unnonagintillion", 279: "Duononagintillion", 282: "Trenonagintillion", 285: "Quattuornonagintillion", 288: "Quinnonagintillion", 291: "Sexnonagintillion", 294: "Septennonagintillion", 297: "Octononagintillion", 300: "Novemnonagintillion", 303: "Centillion", 306: "Uncentillion" };
+    #jpOnesPlace = ["〇", "一", "二", "三", "四", "五", "六", "七", "八", "九"];
+    #jpTHT = ["", "十", "百", "千"];
+    #jpOthersPlace = ["", "万", "億", "兆", "京", "垓", "𥝱", "穣", "溝", "澗", "正", "載", "極", "恒河沙", "阿僧祇", "那由他", "不可思議", "無量大数"];
+    #jpDaijiBefore = ["〇", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "百", "千", "万"];
+    #jpDaijiAfter = ["零", "壱", "弐", "参", "肆", "伍", "陸", "漆", "捌", "玖", "拾", "陌", "阡", "萬"];
+
+    #convertToStrNum(num) {
+        num = num.toString().replace(/[０-９]/g, function (s) {
             return String.fromCharCode(s.charCodeAt(0) - 0xfee0);
-        }).replace(/．/g, ".").replace(/，/g, "").replace(/\,/g, "").replace(/\s/g, "").replace(/＾/g, "^").replace(/[πΠ]/g, Math.PI).replace(/[eEｅＥ]/g, Math.E).trim().split(".");
-        n[0] = n[0].replace(/^0*/g, "");
-        if (typeof n[1] != "undefined") {
-            n[1] = n[1].replace(/0*$/g, "");
+        }).replace(/．/g, ".").replace(/，/g, "").replace(/\,/g, "").replace(/\s/g, "").trim();
+        if (!RegExp(/[^0-9\.]/g, "").test(num) && (num.match(/\./g) || []).length <= 1) {
+            if (num.substr(0, 1) == ".") {
+                num = "0" + num;
+            }
+            if (num.substr(-1) == ".") {
+                num = num + "0";
+            }
+            return num;
         } else {
-            n[1] = ""
-        }
-        if (isNaN(n[0]) || (isNaN(n[1]) != "" && isNaN(n[1]))) {
             throw new Error("NaN");
         }
-        n[0] = n[0].trim();
-        n[1] = n[1].trim();
-        return n;
-    },
-    en_under: function(x) {
-        x = x.replace(/^0*/g, "");
-        let y = "";
-        if (Number(x) > 99) {
-            y = x.slice(0, 1);
-            x = x.slice(1);
-            for (let i = 0; i <= 9; i++) {
-                a = new RegExp(i, "g");
-                y = y.replace(a, this.en_ones_place[i] + " hundred ");
-            }
-        }
-        x = x.replace(/^0*/g, "");
-        if (Number(x) > 19) {
-            let t1 = x.slice(0, 1);
-            let t2 = x.slice(-1);
-            for (let i = 0; i <= 9; i++) {
-                let a = new RegExp(i, "g");
-                t1 = t1.replace(a, this.en_tens_place[i] + " ");
-                if (t2 == "0") {
-                    t2 = "";
-                } else {
-                    t2 = t2.replace(a, this.en_ones_place[i] + " ");
-                }
-            }
-            x = t1 + t2;
-        } else if (Number(x) > 9) {
-            for (let i = 0; i <= 9; i++) {
-                a = new RegExp("1" + i, "g");
-                x = x.replace(a, this.en_tens[i] + " ");
-            }
-        } else if (Number(x) > 0) {
-            for (let i = 0; i <= 9; i++) {
-                a = new RegExp(i, "g");
-                x = x.replace(a, this.en_ones_place[i] + " ");
-            }
-        } else {
-            x = "";
-        }
-        return (y + x).trim();
-    },
-    jp_under: function(x) {
-        x = x.replace(/^0*/g, "");
-        let t1 = x.slice(-1);
-        let t2 = x.slice(-2, -1);
-        let t3 = x.slice(-3, -2);
-        let t4 = x.slice(-4, -3);
-        for (let i = 0; i <= 9; i++) {
-            let a = new RegExp(i, "g");
-            if (i == 0 && (t2 != "" || t3 != "" || t4 != "")) {
-                t1 = t1.replace(a, "");
-            } else {
-                t1 = t1.replace(a, this.jp_ones_place[i]);
-            }
-            if (i == 0) {
-                t2 = t2.replace(a, "");
-                t3 = t3.replace(a, "");
-                t4 = t4.replace(a, "");
-            } else if (i == 1) {
-                t2 = t2.replace(a, "十");
-                t3 = t3.replace(a, "百");
-                t4 = t4.replace(a, "千");
-            } else {
-                t2 = t2.replace(a, this.jp_ones_place[i] + "十");
-                t3 = t3.replace(a, this.jp_ones_place[i] + "百");
-                t4 = t4.replace(a, this.jp_ones_place[i] + "千");
-            }
-        }
-        return (t4 + t3 + t2 + t1).trim();
-    },
-};
-
-function num_to_word_en(n) {
-    try {
-        if (n == "" | n == undefined) {
-            throw new Error("undefined");
-        }
-        n = NumberToWordDictionaryAndFunction.replace_num_A(n);
-        let over_point = n[0];
-        let under_point = "";
-        if (n[1] != "") {
-            under_point = "point " + n[1];
-        }
-        if (over_point.length < NumberToWordDictionaryAndFunction.en_others_place.length * 3 + 1) {
-            let over_array = [];
-            for (let i = 0; i <= 9; i++) {
-                a = new RegExp(i, "g");
-                under_point = under_point.replace(a, NumberToWordDictionaryAndFunction.en_ones_place[i] + " ");
-            }
-            for (let i = 0; i < Math.ceil(over_point.length / 3); i++) {
-                if (i == 0) {
-                    over_array.push(over_point.slice(-3));
-                } else {
-                    over_array.push(over_point.slice(-i * 3 - 3, -i * 3));
-                }
-            }
-            let t = "";
-            for (let i = 0; i < over_array.length; i++) {
-                if (over_array[i] != "000") {
-                    t = NumberToWordDictionaryAndFunction.en_under(over_array[i]) + NumberToWordDictionaryAndFunction.en_others_place[i] + t;
-                }
-            }
-            if (t.trim() == "ten duotrigintillion") {
-                t = "googol";
-            }
-            over_point = t;
-            if (over_point == "") {
-                over_point = "Zero";
-            }
-            return (over_point.slice(0, 1).toUpperCase() + over_point.slice(1) + " " + under_point).trim();
-        } else {
-            throw new Error("overflow");
-        }
-    } catch (e) {
-        throw new Error(e);
     }
-}
-
-function num_to_word_jp(n) {
-    try {
-        if (n == "" | n == undefined) {
-            throw new Error("undefined");
+    #splitNum(num) {
+        if (num == null || num == undefined || num == "") {
+            throw new TypeError("Cannot read property 'argument' of undefined");
         }
-        n = NumberToWordDictionaryAndFunction.replace_num_A(n);
-        let over_point = n[0];
-        let under_point = "";
-        if (n[1] != "") {
-            under_point = "・" + n[1];
+        num = this.#convertToStrNum(num);
+        try {
+            let numArray = { "integer": "", "decimal": "" };
+            numArray.integer = num.split(".")[0] || "";
+            numArray.decimal = num.split(".")[1] || "";
+            return numArray;
+        } catch (e) {
+            if (e instanceof TypeError) {
+                throw new TypeError("Invalid argument: Expected a string");
+            } else {
+                throw new Error("Unknown error");
+            }
         }
-        if (over_point.length < NumberToWordDictionaryAndFunction.jp_others_place.length * 4 + 1) {
-            let over_array = [];
-            for (let i = 0; i <= 9; i++) {
-                a = new RegExp(i, "g");
-                under_point = under_point.replace(a, NumberToWordDictionaryAndFunction.jp_ones_place[i]);
-            }
-            for (let i = 0; i < Math.ceil(over_point.length / 4); i++) {
-                if (i == 0) {
-                    over_array.push(over_point.slice(-4));
-                } else {
-                    over_array.push(over_point.slice(-i * 4 - 4, -i * 4));
-                }
-            }
-            let t = "";
-            for (let i = 0; i < over_array.length; i++) {
-                if (over_array[i] != "0000") {
-                    t = NumberToWordDictionaryAndFunction.jp_under(over_array[i]) + NumberToWordDictionaryAndFunction.jp_others_place[i] + t;
-                }
-            }
-            over_point = t;
-            if (over_point == "") {
-                over_point = "〇";
-            }
-            return over_point + under_point;
-        } else {
-            throw new Error("overflow");
-        }
-    } catch (e) {
-        throw new Error(e);
     }
-}
+    #sliceTo1digitNum(num) {
+        return num.split("");
+    }
+    #sliceTo3digitNum(num) {
+        let result = [];
+        let len = num.length;
+        for (let i = 0; i < len; i = i + 3) {
+            result.unshift(num.substr(-3, 3));
+            num = num.slice(0, -3)
+        }
+        return result;
+    }
+    #sliceTo4digitNum(num) {
+        let result = [];
+        let len = num.length;
+        for (let i = 0; i < len; i = i + 4) {
+            result.unshift(num.substr(-4, 4));
+            num = num.slice(0, -4)
+        }
+        return result;
+    }
+    #replaceIntUnitEn(num) {
+        let numArray = num.split("");
+        if (numArray.length > 3) {
+            throw new Error("Overflow");
+        }
+        let result = "";
+        if (numArray.length == 1) {
+            result = this.#enOnesPlace[numArray[0]];
+        } else {
+            if (numArray.length == 2) {
+                numArray.unshift("0");
+            }
+            if (numArray[1] == "0") {
+                result = this.#enOnesPlace[numArray[2]];
+            } else if (numArray[1] == "1") {
+                result = this.#enTens[numArray[2]];
+            } else {
+                if (numArray[2] == "0") {
+                    result = this.#enTensPlace[numArray[1]];
+                } else {
+                    result = this.#enTensPlace[numArray[1]] + "-" + this.#enOnesPlace[numArray[2]];
+                }
+            }
+            if (numArray[0] != "0") {
+                if (result == this.#enOnesPlace[0]) {
+                    result = "";
+                }
+                result = this.#enOnesPlace[numArray[0]] + " " + this.#enHundredsPlace + " " + result;
+            }
+        }
+        return result.trim();
+    }
+    #replaceIntUnitJp(num) {
+        let numArray = num.split("").reverse();
+        if (numArray.length > 4) {
+            throw new Error("Overflow");
+        }
+        let result = "";
+        for (let i = 0; i < numArray.length; i++) {
+            if ((i > 0 && numArray[i] == "0") || (i == 0 && numArray.length > 1 && numArray[i] == "0")) {
+            } else if (i > 0 && numArray[i] == "1") {
+                result = this.#jpTHT[i] + result;
+            } else {
+                result = this.#jpOnesPlace[numArray[i]] + this.#jpTHT[i] + result;
+            }
+        }
+        return result;
+    }
 
-function num_to_word_jp_dai(n) {
-    try {
-        let jp_dai_before = ["〇", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "百", "千", "万"];
-        let jp_dai_after = ["零", "壱", "弐", "参", "肆", "伍", "陸", "漆", "捌", "玖", "拾", "陌", "阡", "萬"];
-        n = num_to_word_jp(n);
+    static toLocaleString(locale, num) {
+        if (locale == null || locale == undefined || locale == "" || num == null || num == undefined || num == "") {
+            throw new TypeError("Cannot read property 'argument' of undefined");
+        } else if (locale == "en" || locale == "En" || locale == "EN" || locale == "english" || locale == "English" || locale == "ENGLISH") {
+            return NumToWord.toEn(num);
+        } else if (locale == "jp" || locale == "Jp" || locale == "JP" || locale == "japanese" || locale == "Japanese" || locale == "JAPANESE") {
+            return NumToWord.toJp(num);
+        } else if (locale == "jpDaiji" || locale == "JpDaiji" || locale == "JPDaiji" || locale == "daiji" || locale == "Daiji" || locale == "DAIJI") {
+            return NumToWord.toJpDaiji(num);
+        } else {
+            throw new Error("Invalid locale");
+        }
+    }
+
+    static toEn(num) {
+        const numToWord = new NumToWord();
+        const numArray = numToWord.#splitNum(num);
+        if (numArray.integer.length > 309) {
+            throw new Error("Overflow");
+        }
+        let integerArray = numToWord.#sliceTo3digitNum(numArray.integer);
+        let decimalArray = numToWord.#sliceTo1digitNum(numArray.decimal);
+        integerArray = integerArray.reverse().map((num, i) => {
+            return numToWord.#replaceIntUnitEn(num) + " " + numToWord.#enOthersPlace[i * 3].toLowerCase();
+        }).reverse();
+        if (integerArray.length > 1) {
+            integerArray = integerArray.map((num) => {
+                if (RegExp(numToWord.#enOnesPlace[0]).test(num)) {
+                    return "";
+                }
+                return num;
+            });
+        }
+        integerArray = integerArray.filter(num => num != "");
+        decimalArray = decimalArray.map(num => {
+            return numToWord.#enOnesPlace[num];
+        });
+        if (decimalArray.length > 0) {
+            const result = (integerArray.join(" ").trim() + " point " + decimalArray.join(" ").trim()).trim();
+            return result.slice(0, 1).toUpperCase() + result.slice(1);
+        } else {
+            const result = integerArray.join(" ").trim();
+            return result.slice(0, 1).toUpperCase() + result.slice(1);
+        }
+    }
+
+    static toJp(num) {
+        const numToWord = new NumToWord();
+        const numArray = numToWord.#splitNum(num);
+        if (numArray.integer.length > 72) {
+            throw new Error("Overflow");
+        }
+        let integerArray = numToWord.#sliceTo4digitNum(numArray.integer);
+        let decimalArray = numToWord.#sliceTo1digitNum(numArray.decimal);
+        integerArray = integerArray.reverse().map((num, i) => {
+            if (num != "0" && num != "00" && num != "000" && num != "0000") {
+                return numToWord.#replaceIntUnitJp(num) + numToWord.#jpOthersPlace[i];
+            }
+        }).reverse();
+        decimalArray = decimalArray.map(num => {
+            return numToWord.#jpOnesPlace[num];
+        });
+        if (decimalArray.length > 0) {
+            return integerArray.join("") + "・" + decimalArray.join("");
+        } else {
+            return integerArray.join("");
+        }
+    }
+
+    static toJpDaiji(num) {
+        const numToWord = new NumToWord;
+        num = NumToWord.toJp(num);
         for (let i = 0; i <= 13; i++) {
-            let a = new RegExp(jp_dai_before[i], "g");
-            n = n.replace(a, jp_dai_after[i]);
+            let reg = new RegExp(numToWord.#jpDaijiBefore[i], "g");
+            num = num.replace(reg, numToWord.#jpDaijiAfter[i]);
         }
-        return n;
-    } catch (e) {
-        throw new Error(e);
+        return num;
     }
 }
