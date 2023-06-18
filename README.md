@@ -7,6 +7,8 @@
 数字を各言語の単語に変換します。
 以下の関数があります。
 
+_NumToWord.toLocaleString_  
+_NumToWord.toSi_  
 _NumToWord.toEn_  
 _NumToWord.toJp_  
 _NumToWord.toJpDaiji_
@@ -52,14 +54,16 @@ _123456.789_
 
 ### 出力
 
+- _NumToWord.toLocaleString("en",123456.789)_ →
+  - _One hundred twenty-three thousand four hundred fifty-six point seven eight nine_
+- _NumToWord.toSi_ →
+  - _123.457K_
 - _NumToWord.toEn_ →
   - _One hundred twenty-three thousand four hundred fifty-six point seven eight nine_
 - _NumToWord.toJp_ →
   - _十二万三千四百五十六・七八九_
 - _NumToWord.toJpDaiji_ →
   - _拾弐萬参阡肆陌伍拾陸・漆捌玖_
-- _NumToWord.toLocaleString("en",123456.789)_ →
-  - _One hundred twenty-three thousand four hundred fifty-six point seven eight nine_
 
 ## やるかもしれないこと（予定）
 
@@ -71,7 +75,6 @@ _123456.789_
 - （あれば）無量大数の先
 - （あれば）萬の先
 - Short scale と Long scale についての対応
-- SI 接頭語（記号）への変換の対応
 - 逆変換の対応
 
 # English
@@ -79,6 +82,8 @@ _123456.789_
 Converts numbers to words in each language.
 There are the following functions.
 
+_NumToWord.toLocaleString_  
+_NumToWord.toSi_  
 _NumToWord.toEn_  
 _NumToWord.toJp_  
 _NumToWord.toJpDaiji_
@@ -123,14 +128,16 @@ _123456.789_
 
 ### output
 
+- _NumToWord.toLocaleString("en",123456.789)_ →
+  - _One hundred twenty-three thousand four hundred fifty-six point seven eight nine_
+- _NumToWord.toSi_ →
+  - _123.457K_
 - _NumToWord.toEn_ →
   - _One hundred twenty-three thousand four hundred fifty-six point seven eight nine_
 - _NumToWord.toJp_ →
   - _十二万三千四百五十六・七八九_
 - _NumToWord.toJpDaiji_ →
   - _拾弐萬参阡肆陌伍拾陸・漆捌玖_
-- _NumToWord.toLocaleString("en",123456.789)_ →
-  - _One hundred twenty-three thousand four hundred fifty-six point seven eight nine_
 
 ## What I might do (planned)
 
@@ -142,7 +149,6 @@ _123456.789_
 - Beyond the "無量大数" (10^68), if applicable
 - Beyond "萬" (10,000), if applicable
 - Support for both short scale and long scale number naming systems
-- Support for converting numbers to SI prefixes (symbols)
 - Support for converting numbers back to their original form
 
 ## Version
