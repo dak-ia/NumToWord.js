@@ -1,140 +1,151 @@
 # NumToWord.js
+
 ### NumToWord.js | MIT License | https://github.com/dak-ia/NumToWord.js/blob/main/LICENSE
 
 # Japanese
+
 数字を各言語の単語に変換します。
 以下の関数があります。
 
-*num_to_word_en*  
-*num_to_word_jp*  
-*num_to_word_jp_dai*  
+_NumToWord.toEn_  
+_NumToWord.toJp_  
+_NumToWord.toJpDaiji_
 
 ## 構文
+
 ```javascript
-let word = num_to_word_en(number);
+let word = NumToWord.toEn(number);
+let word = NumToWord.toLocaleString(locale, number);
 ```
 
 ## 引数
+
 ### number
-引数（入力）です。数値型でも文字型でもどちらでも入力できます。半角でも全角でもどちらでも問題ありません。  
-数字以外の文字を入力すると*NaN*エラーが発生しますが*πΠeEｅ*Ｅの6つは例外で、それぞれ円周率とネイピア数に変換して処理します。  
+
+number 型でも string 型でもどちらでも入力できます。半角でも全角でもどちらでも問題ありません。  
+しかし、引数は string 型推奨です。number 型の場合、内部で使用している toString()などの処理の都合上、予期せぬ結果になることがあります。  
+数字以外の文字を入力すると*NaN*エラーが発生します。  
+同様に*123.456.789*のように小数点を 2 つ入力以上すると、自然数ではないのでエラーが発生します。  
 引数が空だと*undefined*エラーが発生します。引数が大きく、辞書の範囲外になる場合は*overflow*エラーが発生します。  
 内部でカンマを消しているため*123,456,789*のような入力値の場合は*123456789*に変換されるのでそのまま利用できます。  
-指数表記の入力には現在未対応です。*123.456.789*のように小数点を2つ入力以上すると*123.456*のみの結果が表示され*789*以下は出力されず無視されます。  
-*num_to_word_en*は数字を英数字（？）に変換します。10^123（quadragintillion）まで対応しています。  
-*num_to_word_jp*は数字を漢数字に変換します。10^68（無量大数）まで対応しています。  
-*num_to_word_jp_dai*は数字を漢数字に変換したうえで対応している文字を大字に変換します。10^68（無量大数）まで対応していますが変換されるのは萬（万）までです。  
+指数表記の入力には現在未対応です。
+
+- *NumToWord.toEn*は数字を英単語の数字に変換します。10^306（uncentillion）まで対応しています。
+- *NumToWord.toJp*は数字を漢数字に変換します。10^68（無量大数）まで対応しています。
+- *NumToWord.toJpDaiji*は数字を漢数字に変換したうえで、対応している文字を大字に変換します。10^68（無量大数）まで対応していますが変換されるのは萬（万）までです。
+
+### locale
+
+言語を選択できます。En、Jp などの NumToWord が対応している言語すべてに対応しています。
 
 ## 返値
+
 ### word
-出力です。文字型になります。  
+
+出力です。文字型になります。
 
 ## 例
+
 ### 入力
-*123456.789*
+
+_123456.789_
+
 ### 出力
-*num_to_word_en*→*One hundred twenty three thousand four hundred fifty six point seven eight nine*  
-*num_to_word_jp*→*十二万三千四百五十六・七八九*  
-*num_to_word_jp_dai*→*拾弐萬参阡肆陌伍拾陸・漆捌玖*  
+
+- _NumToWord.toEn_ →
+  - _One hundred twenty-three thousand four hundred fifty-six point seven eight nine_
+- _NumToWord.toJp_ →
+  - _十二万三千四百五十六・七八九_
+- _NumToWord.toJpDaiji_ →
+  - _拾弐萬参阡肆陌伍拾陸・漆捌玖_
+- _NumToWord.toLocaleString("en",123456.789)_ →
+  - _One hundred twenty-three thousand four hundred fifty-six point seven eight nine_
 
 ## やるかもしれないこと（予定）
-* 他言語対応
-* 数字の区切り文字をカンマだけでなくピリオドやスペースに対応。（小数点はについても指定可能）
-* 指数表記の入力に対応
-* quadragintillionの先（一般的なもののみ）
-* 無量大数の先（一般的なもののみ）
-* 萬の先（一般的なもののみ）
 
-# English by Google Translate
+- 他言語対応
+- 数字の区切り文字は世界を見渡すとをカンマだけではないようなので、ピリオドやスペースに対応
+- 指数表記の入力に対応
+- 数学的な記号に対応
+- （あれば）quadragintillion の先
+- （あれば）無量大数の先
+- （あれば）萬の先
+- Short scale と Long scale についての対応
+- SI 接頭語（記号）への変換の対応
+- 逆変換の対応
+
+# English
+
 Converts numbers to words in each language.
 There are the following functions.
 
-*num_to_word_en*  
-*num_to_word_jp*  
-*num_to_word_jp_dai*  
+_NumToWord.toEn_  
+_NumToWord.toJp_  
+_NumToWord.toJpDaiji_
 
 ## Syntax
+
 ```javascript
-let word = num_to_word_en (number);
+let word = NumToWord.toEn(number);
 ```
 
 ## argument
+
 ### number
-It is an argument (input). You can enter either a numeric type or a character type. It doesn't matter whether it is half-width or full-width.
-If you enter characters other than numbers, a * NaN * error will occur, with the exception of * πΠeEe * E, which will be converted to pi and the number of Napiers, respectively.
-If the argument is empty, a * undefined * error will occur. If the argument is large and out of range of the dictionary, a * overflow * error will occur.
-Since the comma is deleted internally, input values such as * 123,456,789 * will be converted to * 123456789 * and can be used as they are.
-Input of exponential notation is not currently supported. If two or more decimal points are entered, such as * 123.456.789 *, the result of only * 123.456 * will be displayed, and the following * 789 * will not be output and will be ignored.
-* num_to_word_en * converts numbers to alphanumericals (?). It supports up to 10 ^ 123 (quadragintillion).
-* num_to_word_jp * converts numbers to Kanzi numerals. It supports up to 10 ^ 68 (immeasurables).
-* num_to_word_jp_dai * converts numbers to Kanji numerals and then converts the corresponding characters to Daiji. It supports up to 10 ^ 68 （無量大数）, but only up to 萬（万）.
+
+Both number and string types can be used as input, regardless of whether they are half-width or full-width characters.  
+However, string type is recommended for arguments. If a number type is used, unexpected results may occur due to processing such as toString().  
+Entering characters other than numbers will result in a NaN error.  
+Similarly, if two or more decimal points are entered, such as 123.456.789, an error will occur because it is not a natural number.  
+If the argument is empty, an undefined error will occur. If the argument is large and outside the range of the dictionary, an overflow error will occur.  
+Commas are removed internally, so input values such as 123,456,789 can be used as they are.  
+Exponential notation is currently not supported.
+
+- NumToWord.toEn converts numbers to English word numbers and supports up to 10^306 (uncentillion).
+- NumToWord.toJp converts numbers to Kanzi numerals and supports up to 10^68 (無量大数).
+- NumToWord.toJpDaiji converts numbers to Kanzi numerals and then converts the corresponding characters to large letters. It supports up to 10^68 (無量大数), but only up to 萬 (万) is converted.
+
+### locale
+
+You can choose your language. It supports all languages supported by NumToWord such as En, Jp.
 
 ## Return value
+
 ### word
+
 The output. It will be a character type.
 
 ## example
+
 ### input
-*123456.789*
+
+_123456.789_
+
 ### output
-*num_to_word_en*→*One hundred twenty three thousand four hundred fifty six point seven eight nine*  
-*num_to_word_jp*→*十二万三千四百五十六・七八九*  
-*num_to_word_jp_dai*→*拾弐萬参阡肆陌伍拾陸・漆捌玖*  
+
+- _NumToWord.toEn_ →
+  - _One hundred twenty-three thousand four hundred fifty-six point seven eight nine_
+- _NumToWord.toJp_ →
+  - _十二万三千四百五十六・七八九_
+- _NumToWord.toJpDaiji_ →
+  - _拾弐萬参阡肆陌伍拾陸・漆捌玖_
+- _NumToWord.toLocaleString("en",123456.789)_ →
+  - _One hundred twenty-three thousand four hundred fifty-six point seven eight nine_
 
 ## What I might do (planned)
-* Supports other languages  
-* Supports number delimiters not only commas but also periods and spaces. (The decimal point can also be specified)  
-* Supports input of exponential notation  
-* Beyond quadragintillion (general only)  
-* Beyond 無量大数(general only)  
-* Beyond 萬(general only)  
 
+- Support for other languages
+- Support for decimal separators other than commas, such as periods or spaces, as they are used in different parts of the world
+- Support for input in exponential notation
+- Support for mathematical symbols
+- Beyond quadragintillion, if applicable
+- Beyond the "無量大数" (10^68), if applicable
+- Beyond "萬" (10,000), if applicable
+- Support for both short scale and long scale number naming systems
+- Support for converting numbers to SI prefixes (symbols)
+- Support for converting numbers back to their original form
 
-# English by DeepL
-Converts numbers to words in each language.
-The following functions are available
+## Version
 
-*num_to_word_en*  
-*num_to_word_jp*  
-*num_to_word_jp_dai*
-
-## Syntax
-```javascript
-let word = num_to_word_en(number);
-```
-
-## Arguments
-### number
-Argument (input). You can input either numeric or character type. Either one-byte or two-byte characters are acceptable.  
-If you enter non-numeric characters, a *NaN* error will occur, with the exception of *πΠeEe*E, which will be converted to pi and Napier numbers, respectively, and processed.  
-If the argument is empty, an *undefined* error is generated. If the argument is large and outside the range of the dictionary, an *overflow* error is raised.  
-Because of internal comma erasing, input values such as *123,456,789* are converted to *123456789* and can be used as they are.  
-Exponential notation is currently not supported. If you enter two or more decimal points, such as *123.456.789*, only *123.456* will be displayed and anything below *789* will be ignored.  
-*num_to_word_en* converts numbers to alphanumeric (?) characters. It supports up to 10^123 (quadragintillion).  
-*num_to_word_jp* converts numbers to Kanji numerals, up to 10^68 (a countless number).  
-*num_to_word_jp_dai* converts numbers to Kanji numerals and then converts the corresponding characters to Daiji, up to 10^68 (無量大数) but only up to 萬（万） are converted.  
-
-## Return value
-### word
-Output. Character type.  
-
-## Example
-### Input
-*123456.789*
-### Output
-*num_to_word_en*→*One hundred twenty three thousand four hundred fifty six point seven eight nine*  
-*num_to_word_jp*→*十二万三千四百五十六・七八九*  
-*num_to_word_jp_dai*→*拾弐萬参阡肆陌伍拾陸・漆捌玖*
-
-## Things we may do (planned)
-* Support for other languages
-* Support for period and space as well as comma as number separators. (Decimal point can be specified as well.)
-* Support for input of exponential notation
-* Beyond quadragintillion (general only)
-* Beyond 無量大数(general only)
-* Beyond 萬(general only)
-
-
-
-
-#### 2022/03/16 First Upload
+- Ver.0.1.0 earlier are beta versions
+- 0.1.0 2023/06/18(UTC+09) : First release
