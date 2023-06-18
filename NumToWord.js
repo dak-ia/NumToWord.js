@@ -167,7 +167,7 @@ class NumToWord {
     static toJp(num) {
         const numToWord = new NumToWord();
         const numArray = numToWord.#splitNum(num);
-        if (numArray.integer.length > Object.values(numToWord.#jpOthersPlace).length * 4) {
+        if (numArray.integer.length > numToWord.#jpOthersPlace.length * 4) {
             throw new Error("Overflow");
         }
         let integerArray = numToWord.#sliceTo4digitNum(numArray.integer);
