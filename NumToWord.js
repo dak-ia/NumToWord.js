@@ -1,8 +1,9 @@
 "use strict";
 
 class NumToWord {
-    static version = "0.0.1";
+    static version = "0.1.0";
 
+    #siSymbol = ["K", "M", "G", "T", "P", "E", "Z", "Y", "R", "Q"];
     #enOnesPlace = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
     #enTens = ["ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"];
     #enTensPlace = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
@@ -121,6 +122,8 @@ class NumToWord {
     static toLocaleString(locale, num) {
         if (locale == null || locale == undefined || locale == "" || num == null || num == undefined || num == "") {
             throw new TypeError("Cannot read property 'argument' of undefined");
+        } else if (locale == "si" || locale == "Si") {
+            return NumToWord.toSi(num);
         } else if (locale == "en" || locale == "En" || locale == "EN" || locale == "english" || locale == "English" || locale == "ENGLISH") {
             return NumToWord.toEn(num);
         } else if (locale == "jp" || locale == "Jp" || locale == "JP" || locale == "japanese" || locale == "Japanese" || locale == "JAPANESE") {
@@ -129,6 +132,24 @@ class NumToWord {
             return NumToWord.toJpDaiji(num);
         } else {
             throw new Error("Invalid locale");
+        }
+    }
+
+    static toSi(num) {
+        const numToWord = new NumToWord();
+        const numArray = numToWord.#splitNum(num);
+        if (numArray.integer.length > (numToWord.#siSymbol.length + 1) * 3) {
+            throw new Error("Overflow");
+        }
+        if (numArray.integer.length <= 3) {
+            return numArray.integer + "." + numArray.decimal;
+        } else {
+            let integerArray = numToWord.#sliceTo3digitNum(numArray.integer);
+            if (integerArray.length == 2) {
+                return ((Math.round(Number(integerArray[0] + integerArray[1] + "." + numArray.decimal))) / 1000).toString() + numToWord.#siSymbol[0];
+            } else {
+                return ((Math.round(Number(integerArray[0] + integerArray[1] + "." + integerArray[2]))) / 1000).toString() + numToWord.#siSymbol[integerArray.length - 2];
+            }
         }
     }
 
