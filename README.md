@@ -32,6 +32,7 @@ number 型でも string 型でもどちらでも入力できます。半角で�
 内部でカンマを消しているため*123,456,789*のような入力値の場合は*123456789*に変換されるのでそのまま利用できます。  
 指数表記の入力には現在未対応です。
 
+- *NumToWord.toSi*は四捨五入して SI 接頭語の記号を適用した状態に変換します。10^30（Q）まで対応しています。
 - *NumToWord.toEn*は数字を英単語の数字に変換します。10^306（uncentillion）まで対応しています。
 - *NumToWord.toJp*は数字を漢数字に変換します。10^68（無量大数）まで対応しています。
 - *NumToWord.toJpDaiji*は数字を漢数字に変換したうえで、対応している文字を大字に変換します。10^68（無量大数）まで対応していますが変換されるのは萬（万）までです。
@@ -106,9 +107,10 @@ If the argument is empty, an undefined error will occur. If the argument is larg
 Commas are removed internally, so input values such as 123,456,789 can be used as they are.  
 Exponential notation is currently not supported.
 
-- NumToWord.toEn converts numbers to English word numbers and supports up to 10^306 (uncentillion).
-- NumToWord.toJp converts numbers to Kanzi numerals and supports up to 10^68 (無量大数).
-- NumToWord.toJpDaiji converts numbers to Kanzi numerals and then converts the corresponding characters to large letters. It supports up to 10^68 (無量大数), but only up to 萬 (万) is converted.
+- _NumToWord.toSi_ rounds and converts to the state with the SI prefix sign applied. Up to 10^30 (Q) is supported.
+- _NumToWord.toEn_ converts numbers to English word numbers and supports up to 10^306 (uncentillion).
+- _NumToWord.toJp_ converts numbers to Kanzi numerals and supports up to 10^68 (無量大数).
+- _NumToWord.toJpDaiji_ converts numbers to Kanzi numerals and then converts the corresponding characters to large letters. It supports up to 10^68 (無量大数), but only up to 萬 (万) is converted.
 
 ### locale
 
