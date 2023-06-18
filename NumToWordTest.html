@@ -10,6 +10,7 @@
 <body>
     <input type="number" id="text" style="width: 100em;" autofocus>
     <br>
+    <input type="button" onclick="pressSi()" value="数字をSiへ">
     <input type="button" onclick="pressEn()" value="数字を英語へ">
     <input type="button" onclick="pressJp()" value="数字を漢字へ">
     <input type="button" onclick="pressJpDaiji()" value="数字を大字へ">
@@ -19,6 +20,10 @@
 <script>
     let input = document.getElementById("text");
     let output = document.getElementById("output");
+
+    function pressSi() {
+        output.innerText = NumToWord.toSi(input.value);
+    }
 
     function pressEn() {
         output.innerText = NumToWord.toEn(input.value);
