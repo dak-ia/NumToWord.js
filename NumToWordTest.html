@@ -3,35 +3,34 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>num_to_word</title>
+    <title>NumToWord Test Page</title>
     <script type="text/javascript" src="NumToWord.js"></script>
 </head>
 
 <body>
     <input type="number" id="text" style="width: 100em;" autofocus>
     <br>
-    <input type="button" onclick="press_en()" value="数字を英語へ">
-    <input type="button" onclick="press_jp()" value="数字を漢字へ">
-    <input type="button" onclick="press_jp_dai()" value="数字を大字へ">
+    <input type="button" onclick="pressEn()" value="数字を英語へ">
+    <input type="button" onclick="pressJp()" value="数字を漢字へ">
+    <input type="button" onclick="pressJpDaiji()" value="数字を大字へ">
     <br><br>
-    <span id="out"></span>
+    <span id="output"></span>
 </body>
 <script>
     let input = document.getElementById("text");
-    let output = document.getElementById("out");
+    let output = document.getElementById("output");
 
-    function press_en() {
-        out.innerText = num_to_word_en(input.value);
+    function pressEn() {
+        output.innerText = NumToWord.toEn(input.value);
     }
 
-    function press_jp() {
-        out.innerText = num_to_word_jp(input.value);
+    function pressJp() {
+        output.innerText = NumToWord.toJp(input.value);
     }
 
-    function press_jp_dai() {
-        out.innerText = num_to_word_jp_dai(input.value);
+    function pressJpDaiji() {
+        output.innerText = NumToWord.toJpDaiji(input.value);
     }
 </script>
-
 
 </html>
